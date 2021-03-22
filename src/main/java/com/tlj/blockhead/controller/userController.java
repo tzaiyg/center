@@ -46,7 +46,9 @@ public class userController {
         } catch (Exception e) {
             log.error(BaseUrl.ERROR + ":{}", e);
         }
+        System.out.println(11111);
         return null;
+
     }
 
     public static void main(String[] args) {

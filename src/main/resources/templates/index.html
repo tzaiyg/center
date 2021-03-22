@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+<meta charset="utf-8">
+<title>index</title>
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+    <div class="content">
+
+        <img src="/images/ferris.jpeg" class="ferris">
+
+          <div class="context">  <h2>欢迎回来</h2>
+            <label>
+                <span>昵称</span>
+                <input type="text"  id="name" name="name"/>
+            </label>
+            <label>
+                <span>密码</span>
+                <input type="password" id="pass" name="pass"/>
+            </label>
+            <p class="forgot-pass"><a href="javascript:">忘记密码？</a></p>
+            <button type="button" class="submit" onclick="login()" >登 录</button>
+            <button type="button" class="fb-btn">使用 <span>facebook</span> 帐号登录</button>
+          </div>
+
+        <div class="sub-cont">
+            <div class="img">
+                <div class="img__text m--up">
+                    <h2>还未注册？</h2>
+                    <p><a href="http://localhost:8080/register" style="color: #9acd32;text-decoration: none">立即注册，发现大量机会！</a></p>
+                </div>
+                <div class="img__text m--in">
+                    <h2>已有帐号？</h2>
+                    <p>有帐号就登录吧，好久不见了！</p>
+                </div>
+                <div class="img__btn">
+                    <span class="m--up">注 册</span>
+                    <span class="m--in" >登 录</span>
+                </div>
+            </div>
+            <div class="form sign-up">
+                <h2><a href="register.html">立即注册</a></h2>
+                <label>
+                    <span>用户名</span>
+                    <input type="text" />
+                </label>
+                <label>
+                    <span>邮箱</span>
+                    <input type="email" />
+                </label>
+                <label>
+                    <span>密码</span>
+                    <input type="password" />
+                </label>
+                <button type="button" class="submit" >注 册</button>
+                <button type="button" class="fb-btn">使用 <span>facebook</span> 帐号注册</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+
+<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" >
+    function login(){
+
+        var user={};
+        // var name=document.getElementById("name").value
+        // alert(name)
+        user["name"]=$("#name").val();
+        user["pass"]=$("#pass").val();
+        console.info(user)
+        $.ajax({
+            type:"POST",
+            url: "http://localhost:8080/user/login",
+            async:false,//同步：意思是当有返回值以后才会进行后面的js程序。
+            dataType:'json',
+            contentType:'application/json;charset=UTF-8',
+            data:JSON.stringify(user),
+            success:function(msg){
+                console.info(msg)
+                if (msg.code==9527) {//根据返回值进行跳转
+                    alert("真不愧是我的好宝贝！竟然记住了账号密码！")
+                    window.location.href = 'http://localhost:8080/login?id='+msg.id;
+                    window.open()
+                }else if(msg.code=-1){
+                    alert(msg.message)
+                }
+            }
+        });
+    }
+
+
+
+
+    // $(document).ready(
+    //   $("#login").onclick= function login(){
+    //     //1.创建xhr对象
+    //     var xhr = new XMLHttpRequest();
+    //
+    //     //2.设置请求方式和请求地址
+    //     xhr.open('post','https://localhost:8080/user/login');
+    //     //3.设置请求头
+    //     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    //     //4.注册回调函数
+    //     xhr.onload = function(){
+    //         document.write(xhr.response);
+    //     }
+    //     //5.发送请求(传递的数据通过send()方法来发送)
+    //     xhr.send('key=value');
+    //
+    // }
+    // )
+</script>
+<style type="text/css">
+    /*    a:link { text-decoration: none;color: yellowgreen}*/
+    /*　　 a:active { text-decoration:blink}*/
+    /*　　 a:hover { text-decoration:underline;color: red}*/
+    /*　　 a:visited { text-decoration: none;color: green}*/
+    /*　　*/
+    .ferris{
+        width: 20%;
+        height: 10%;
+        margin-top: -20px;
+    }
+    .context{
+
+    }
+
+</style>
+
+</html>

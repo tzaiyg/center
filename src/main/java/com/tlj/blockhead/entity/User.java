@@ -1,15 +1,13 @@
 package com.tlj.blockhead.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -23,6 +21,7 @@ public class User implements Serializable {
     @Id
     @Column(name = "t_id")
     String id;
+    @NotBlank(message = "T名字不能为空")
     @Column(name = "t_name")
     String name;
     @Column(name = "t_head")
@@ -33,5 +32,8 @@ public class User implements Serializable {
     Integer days;
     @Column(name="t_money")
     BigDecimal money;
+//    @NotBlank(message = "T邮箱不能为空")
+    @Column(name = "t_mail")
+    String email;
 
 }

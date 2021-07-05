@@ -11,7 +11,8 @@ public enum EnumT {
     EXIST("555", "已存在"),
     NONENTITY("404", "不存在"),
     NULL("999", "属性为空"),
-    ERROR("-1","账号或密码错误");
+    ERROR("-1","账号或密码错误"),
+    NO_LOGIN("569","未登录");
 
 
 

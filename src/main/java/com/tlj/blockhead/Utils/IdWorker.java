@@ -3,6 +3,7 @@ package com.tlj.blockhead.Utils;
 
 public class IdWorker {
 
+
     //因为二进制里第一个 bit 为如果是 1，那么都是负数，但是我们生成的 id 都是正数，所以第一个 bit 统一都是 0。
 
     //机器ID  2进制5位  32位减掉1位 31个

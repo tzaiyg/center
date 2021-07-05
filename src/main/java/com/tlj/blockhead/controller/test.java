@@ -21,12 +21,12 @@ public class test {
     public void test(@RequestBody String a) throws Exception {
         final BigDecimal bigDecimal = new BigDecimal("20.00");
 
-        List<User> list=new ArrayList<>();
-        list.add(new User("000","9527","000","000",1,bigDecimal));
-        list.add(new User("000","9528","000","000",1,bigDecimal));
-        userDao.save(new User("tlj125383860170264576","9527","000","000",1,bigDecimal));
-        userDao.save(new User("tlj125383860170264579","9528","000","000",1,bigDecimal));
-        final BigDecimal biga = BigDecimal.ZERO;
+//        List<User> list=new ArrayList<>();
+//        list.add(new User("000","9527","000","000",1,bigDecimal));
+//        list.add(new User("000","9528","000","000",1,bigDecimal));
+//        userDao.save(new User("tlj125383860170264576","9527","000","000",1,bigDecimal));
+//        userDao.save(new User("tlj125383860170264579","9528","000","000",1,bigDecimal));
+//        final BigDecimal biga = BigDecimal.ZERO;
 //        list.stream().forEach(l->{
 //            final User user =
 //                    userDao.findbyName(l.getName());
@@ -39,12 +39,12 @@ public class test {
 //            }
 //
 //        });
-        List l=new ArrayList();
-        BigDecimal bigDecima1=BigDecimal.ZERO;
-        for (String u : list.stream().map(User::getName).collect(Collectors.toList())) {
-            bigDecima1=bigDecima1.add(userDao.findbyName(u).getMoney());
-        }
-        throw new Exception("da");
+//        List l=new ArrayList();
+//        BigDecimal bigDecima1=BigDecimal.ZERO;
+//        for (String u : list.stream().map(User::getName).collect(Collectors.toList())) {
+//            bigDecima1=bigDecima1.add(userDao.findbyName(u).getMoney());
+//        }
+//        throw new Exception("da");
 
 //        collect.stream().forEach(
 //        );

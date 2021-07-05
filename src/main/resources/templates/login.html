@@ -1,10 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN"  xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>login</title>
+<meta charset="utf-8">
+<title>index</title>
+<link rel="stylesheet" href="css/style.css">
+
 </head>
+
 <body>
-this is a login!
+<div class="content">
+    <div class="form sign-in">
+        <h2>欢迎回来</h2>
+        <label>
+            <span>邮箱</span>
+            <input type="email" id="name"/>
+        </label>
+        <label>
+            <span>密码</span>
+            <input type="password" id="pass"/>
+        </label>
+        <p class="forgot-pass"><a href="javascript:">忘记密码？</a></p>
+        <button type="button" class="submit" onclick="login()">登 录</button>
+        <button type="button" class="fb-btn">使用 <span>facebook</span> 帐号登录</button>
+    </div>
+    <div class="sub-cont">
+        <div class="img">
+            <div class="img__text m--up">
+                <h2>还未注册？</h2>
+                <p>立即注册，发现大量机会！</p>
+            </div>
+            <div class="img__text m--in">
+                <h2>已有帐号？</h2>
+                <p>有帐号就登录吧，好久不见了！</p>
+            </div>
+            <div class="img__btn">
+                <span class="m--up">注 册</span>
+                <span class="m--in">登 录</span>
+            </div>
+        </div>
+        <div class="form sign-up">
+            <h2>立即注册</h2>
+            <label>
+                <span>用户名</span>
+                <!--/*@thymesVar id="r_anme" type=""*/-->
+                <input type="text"  th:value="${r_anme}" id="r_name" />
+            </label>
+            <label>
+                <span>邮箱</span>
+                <input type="email" id="email"/>
+            </label>
+            <label>
+                <span>密码</span>
+                <input type="password" id="r_pass"/>
+            </label>
+            <button type="button" class="submit" onclick="register()">注 册</button>
+            <button type="button" class="fb-btn">使用 <span>facebook</span> 帐号注册</button>
+        </div>
+    </div>
+</div>
+
+<script src="js/script.js"></script>
+
+<div style="text-align:center;">
+<!--    <p>更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>-->
+</div>
 </body>
+
+
+<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" >
+    function login(){
+        var user={
+            name:"",
+            pass:""
+        };
+        // var name=document.getElementById("name").value
+        // alert(name)
+        user.name=$("#name").val();
+        user["pass"]=$("#pass").val();
+        $.ajax({
+            type:"POST",
+            url: "http://localhost:8090/user/login",
+            async:false,//同步：意思是当有返回值以后才会进行后面的js程序。
+            dataType:'json',
+            contentType:'application/json;charset=UTF-8',
+            data:JSON.stringify(user),
+            // beforeSend: function (XMLHttpRequest) {
+            //     XMLHttpRequest.setRequestHeader("token", sessionStorage.getItem("token"));
+            // },
+            // beforeSend: function(request) {
+            //     request.setRequestHeader("Authorization", sessionStorage.getItem("token"));
+            // },
+            success:function(msg){
+                console.info(msg)
+                if (msg.code==9527) {//根据返回值进行跳转
+                    sessionStorage.setItem("token",msg.data);
+                    alert("不亏是你"+user.name+"！竟然记住了账号密码！")
+                    window.location.href = 'http://localhost:8090/index';
+                    window.open()
+                }else{
+                    alert(msg.message)
+                }
+            }
+        });
+    }
+
+    function register(){
+
+        var user={};
+        // var name=document.getElementById("name").value
+        // alert(name)
+        user["name"]=$("#r_name").val();
+        user["pass"]=$("#r_pass").val();
+        user["email"]=$("#email").val();
+        console.info(user)
+        $.ajax({
+            type:"POST",
+            url: "http://localhost:8090/user/register",
+            async:false,//同步：意思是当有返回值以后才会进行后面的js程序。
+            dataType:'json',
+            contentType:'application/json;charset=UTF-8',
+            data:JSON.stringify(user),
+            success:function(msg){
+                console.info(msg)
+                if (msg.code==9527) {
+                    if(msg.data==null){
+                        alert("已存在")
+                    }else {
+                        alert("你来了"+msg.data.name)
+                        console.info(msg.data)
+                        window.location.href = 'http://localhost:8090/login';
+                        window.open()
+                    }
+                }else{
+                    alert("请求失败")
+                }
+            }
+        });
+    }
+
+
+
+</script>
+<style type="text/css">
+    /*    a:link { text-decoration: none;color: yellowgreen}*/
+    /*　　 a:active { text-decoration:blink}*/
+    /*　　 a:hover { text-decoration:underline;color: red}*/
+    /*　　 a:visited { text-decoration: none;color: green}*/
+    /*　　*/
+    .ferris{
+        width: 20%;
+        height: 10%;
+        margin-top: -20px;
+    }
+    .context{
+
+    }
+
+</style>
+
 </html>
